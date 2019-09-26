@@ -30,6 +30,8 @@ public class FileFactory {
 			// Print out the content from reading file
 			String fileContent = readFile(fullPath, true);
 			System.out.println("File content: " + fileContent);
+			
+			// for test java syntax only
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
