@@ -212,47 +212,39 @@ public class HTTPFactory {
 		
 		Request request = null;
 		Builder rb = null;
-		if (null != requestBody) {
-			if (!"".equals(requestBody)) { // for POST, PUT, DELETE etc which has request body
-				MediaType mt = MediaType.parse(httpHeader.get("contentType"));
-				RequestBody body = RequestBody.create(requestBody, mt);
-				if ("POST".equalsIgnoreCase(httpMethod)) {
-					rb = new Request.Builder()
-							.header("User-Agent", USER_AGENT)
-							.url(urlIncludeURLParameters)
-							.post(body);
-				} else if ("PUT".equalsIgnoreCase(httpMethod)) {
-					rb = new Request.Builder()
-							.header("User-Agent", USER_AGENT)
-							.url(urlIncludeURLParameters)
-							.put(body);
-				} else if ("PATCH".equalsIgnoreCase(httpMethod)) {
-					rb = new Request.Builder()
-							.header("User-Agent", USER_AGENT)
-							.url(urlIncludeURLParameters)
-							.put(body);
-				} else if ("DELETE".equalsIgnoreCase(httpMethod)) {
-					rb = new Request.Builder()
-							.header("User-Agent", USER_AGENT)
-							.url(urlIncludeURLParameters)
-							.delete(body);
-				} else {
-					rb = new Request.Builder()
-							.header("User-Agent", USER_AGENT)
-							.url(urlIncludeURLParameters)
-							.post(body);
-				}
-			} else { // for GET etc which do not have request body
-				rb = new Request.Builder()
-						.header("User-Agent", USER_AGENT)
-						.url(urlIncludeURLParameters);
-			}
-		} else { // for GET etc which do not have request body
+		MediaType mt = MediaType.parse(httpHeader.get("contentType"));
+		RequestBody body = RequestBody.create(requestBody, mt);
+		if ("GET".equalsIgnoreCase(httpMethod)) {
 			rb = new Request.Builder()
 					.header("User-Agent", USER_AGENT)
 					.url(urlIncludeURLParameters);
+		} else if ("POST".equalsIgnoreCase(httpMethod)) {
+			rb = new Request.Builder()
+					.header("User-Agent", USER_AGENT)
+					.url(urlIncludeURLParameters)
+					.post(body);
+		} else if ("PUT".equalsIgnoreCase(httpMethod)) {
+			rb = new Request.Builder()
+					.header("User-Agent", USER_AGENT)
+					.url(urlIncludeURLParameters)
+					.put(body);
+		} else if ("PATCH".equalsIgnoreCase(httpMethod)) {
+			rb = new Request.Builder()
+					.header("User-Agent", USER_AGENT)
+					.url(urlIncludeURLParameters)
+					.put(body);
+		} else if ("DELETE".equalsIgnoreCase(httpMethod)) {
+			rb = new Request.Builder()
+					.header("User-Agent", USER_AGENT)
+					.url(urlIncludeURLParameters)
+					.delete(body);
+		} else {
+			rb = new Request.Builder()
+					.header("User-Agent", USER_AGENT)
+					.url(urlIncludeURLParameters)
+					.post(body);
 		}
-
+		
 		/*
 		Headers.Builder builder = new Headers.Builder();
 		for (HttpHeader hh : ht.HttpRequestHeader) {
