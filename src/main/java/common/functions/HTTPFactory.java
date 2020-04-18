@@ -7,8 +7,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.conscrypt.Conscrypt;
 
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -56,9 +59,13 @@ public class HTTPFactory {
 			//apiMethod = "POST";
 			
 			// Online tool to check server HTTP/2, ALPN, and Server-push support.
-			url = "https://http2.pro/api/v1";
-			apiMethod = "POST";
+			//url = "https://http2.pro/api/v1";
+			//apiMethod = "POST";
 			
+			// using local api server for test to validate htto client
+			url = "http://localhost:8080/apiserver-servlet/GetClientConnectionInfo";
+			apiMethod = "POST";
+
 			requestBody = "";
 			
 			System.out.println("Call API: " + url + " via " + apiMethod);
@@ -192,6 +199,9 @@ public class HTTPFactory {
 	// https://www.vogella.com/tutorials/JavaLibrary-OkHttp/article.html
 	public static String connectHTTPv2(String httpMethod, Map<String, String> httpHeader, String urlToConnect, String requestBody) throws Exception {
 		String responseStr;
+		// for HTTP/2 use conscrypt to get ALPN support in jdk8
+		// use conscrypt-openjdk-uber jar to include all dependencies
+		Security.insertProviderAt(Conscrypt.newProvider(), 1);
 		// avoid creating several instances, should be singleon
 		OkHttpClient client = new OkHttpClient();
 
