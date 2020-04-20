@@ -53,24 +53,33 @@ public class HTTPFactory {
 			
 			// specify the IP to find location
 			//url = "http://ip-api.com/json/114.136.5.140?fields=16510975&lang=en";
+			//apiMethod = "GET";
 			
 			// not specify the IP to find IP & location
 			//url = "http://ip-api.com/json";
-			//apiMethod = "POST";
+			//apiMethod = "GET";
 			
 			// Online tool to check server HTTP/2, ALPN, and Server-push support.
-			//url = "https://http2.pro/api/v1";
-			//apiMethod = "POST";
+			url = "https://http2.pro/api/v1";
+			apiMethod = "GET";
 			
 			// Test SSL handshake with LetsEncrypt cert.
-			url = "https://helloworld.letsencrypt.org/";
-			apiMethod = "POST";
-			
+			//url = "https://helloworld.letsencrypt.org/";
+			//apiMethod = "POST";
+
 			// using local api server for test to validate http client
 			//url = "http://localhost:8080/apiserver-servlet/GetClientConnectionInfo";
 			//apiMethod = "POST";
 
 			requestBody = "";
+			
+			// API server SSL test
+			//url = "https://localhost:8888/v1/account/g";
+			//apiMethod = "POST";
+			//requestBody =
+			//	"{\r\n" + 
+			//	"  \"account_name\": \"xxx\"\r\n" +
+			//	"}";
 			
 			System.out.println("Call API: " + url + " via " + apiMethod);
 			response = connectHTTPv11(apiMethod, httpHeader, url, requestBody);
@@ -106,14 +115,13 @@ public class HTTPFactory {
 			}
 		}
 		huc = setupHttpHeaders(huc, httpHeader);
+		System.out.println("Sending '"+method+"' request to URL : " + url);
 		huc.setDoInput(true);
-		huc.setDoOutput(false);
-		huc.connect();
-		//System.out.println("Sending '"+method+"' request to URL : " + url);
-		if (method.equals("POST")) {
+		if (!"GET".equals(method)) {
 			if (requestBody!=null) {
 				if (requestBody.equals("")==false) {
 					huc.setDoOutput(true);
+					huc.connect();
 					OutputStream os = huc.getOutputStream();
 					DataOutputStream dos = new DataOutputStream(os);
 					if (requestBody.indexOf("{")>0) {
@@ -131,6 +139,9 @@ public class HTTPFactory {
 					os = null;
 				}
 			}
+		} else {
+			huc.setDoOutput(false);
+			huc.connect();
 		}
 		int responseCode = huc.getResponseCode();
 		if (responseCode!=200 && responseCode!=201) {
