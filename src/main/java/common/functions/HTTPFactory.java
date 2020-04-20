@@ -62,15 +62,19 @@ public class HTTPFactory {
 			//url = "https://http2.pro/api/v1";
 			//apiMethod = "POST";
 			
-			// using local api server for test to validate htto client
-			url = "http://localhost:8080/apiserver-servlet/GetClientConnectionInfo";
+			// Test SSL handshake with LetsEncrypt cert.
+			url = "https://helloworld.letsencrypt.org/";
 			apiMethod = "POST";
+			
+			// using local api server for test to validate http client
+			//url = "http://localhost:8080/apiserver-servlet/GetClientConnectionInfo";
+			//apiMethod = "POST";
 
 			requestBody = "";
 			
 			System.out.println("Call API: " + url + " via " + apiMethod);
-			//response = connectHTTPv11(apiMethod, httpHeader, url, requestBody);
-			response = connectHTTPv2(apiMethod, httpHeader, url, requestBody);
+			response = connectHTTPv11(apiMethod, httpHeader, url, requestBody);
+			//response = connectHTTPv2(apiMethod, httpHeader, url, requestBody);
 			System.out.println("Response from calling API: " + response);
 		} catch (Exception e) {
 			e.printStackTrace();
