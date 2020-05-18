@@ -49,7 +49,7 @@ public class FileFactory {
 					if (line.startsWith("//")) {
 						// do nothing
 					} else {
-						sb.append(line).append("\n");	
+						sb.append(line).append("\n");
 					}
 				} else {
 					sb.append(line).append("\n");

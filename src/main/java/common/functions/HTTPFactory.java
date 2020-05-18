@@ -10,10 +10,6 @@ import java.net.URL;
 import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.conscrypt.Conscrypt;
-
-import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -21,6 +17,7 @@ import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.conscrypt.Conscrypt;
 
 public class HTTPFactory {
 
@@ -74,16 +71,16 @@ public class HTTPFactory {
 			requestBody = "";
 			
 			// API server SSL test
-			//url = "https://localhost:8888/v1/account/g";
-			//apiMethod = "POST";
-			//requestBody =
-			//	"{\r\n" + 
-			//	"  \"account_name\": \"xxx\"\r\n" +
-			//	"}";
+			url = "https://dev-wms.target-ai.com:8087/v1/account/g";
+			apiMethod = "POST";
+			requestBody =
+				"{\r\n" + 
+				"  \"account_name\": \"tg01\"\r\n" +
+				"}";
 			
 			System.out.println("Call API: " + url + " via " + apiMethod);
-			response = connectHTTPv11(apiMethod, httpHeader, url, requestBody);
-			//response = connectHTTPv2(apiMethod, httpHeader, url, requestBody);
+			//response = connectHTTPv11(apiMethod, httpHeader, url, requestBody);
+			response = connectHTTPv2(apiMethod, httpHeader, url, requestBody);
 			System.out.println("Response from calling API: " + response);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,7 +153,7 @@ public class HTTPFactory {
 		while ((line = br.readLine()) != null) sb.append(line);
 		br.close(); br = null;
 		isr.close(); isr = null;
-		is.close(); is = null;	
+		is.close(); is = null;
 		huc.disconnect();
 		// return result
 		return sb.toString();
@@ -169,19 +166,19 @@ public class HTTPFactory {
 		huc.setRequestProperty("Cache-Control", httpHeader.get("cacheControl"));
 		huc.setRequestProperty("Connection", httpHeader.get("connection"));
 		huc.setRequestProperty("Content-Type", httpHeader.get("contentType"));
-		if (httpHeader.get("host")!=null) {
-			if (httpHeader.get("host").isEmpty()==false && httpHeader.get("host").equals("")==false) {
-				huc.setRequestProperty("Host", httpHeader.get("host"));		
+		if (null != httpHeader.get("host")) {
+			if (!httpHeader.get("host").isEmpty() && !httpHeader.get("host").equals("")) {
+				huc.setRequestProperty("Host", httpHeader.get("host"));
 			}
 		}
-		if (httpHeader.get("origin")!=null) {
-			if (httpHeader.get("origin").isEmpty()==false && httpHeader.get("origin").equals("")==false) {
-				huc.setRequestProperty("Origin", httpHeader.get("origin"));		
+		if (null != httpHeader.get("origin")) {
+			if (!httpHeader.get("origin").isEmpty() && !httpHeader.get("origin").equals("")) {
+				huc.setRequestProperty("Origin", httpHeader.get("origin"));
 			}
 		}
 		if (httpHeader.get("referer")!=null) {
-			if (httpHeader.get("referer").isEmpty()==false && httpHeader.get("referer").equals("")==false) {
-				huc.setRequestProperty("Referer", httpHeader.get("referer"));		
+			if (!httpHeader.get("referer").isEmpty() && !httpHeader.get("referer").equals("")) {
+				huc.setRequestProperty("Referer", httpHeader.get("referer"));
 			}
 		}
 		if (httpHeader.get("accessControlRequestHeaders")!=null) {
@@ -201,7 +198,7 @@ public class HTTPFactory {
 		}
 		if (httpHeader.get("userAgent")!=null) {
 			if (httpHeader.get("userAgent").isEmpty()==false && httpHeader.get("userAgent").equals("")==false) {
-				huc.setRequestProperty("User-Agent", httpHeader.get("userAgent"));		
+				huc.setRequestProperty("User-Agent", httpHeader.get("userAgent"));
 			}
 		}
 		if (httpHeader.get("connectTimeout")!=null) huc.setConnectTimeout(Integer.parseInt(httpHeader.get("connectTimeout")));
@@ -286,17 +283,17 @@ public class HTTPFactory {
 	private static Builder setupOkHttpHeaders(Builder rb, Map<String, String> httpHeader) {
 		if (null != httpHeader.get("accept")) {
 			if (false == httpHeader.get("accept").isEmpty() && false == "".equals(httpHeader.get("accept"))) {
-				rb = rb.addHeader("Accept", httpHeader.get("accept"));		
+				rb = rb.addHeader("Accept", httpHeader.get("accept"));
 			}
 		}
 		if (null != httpHeader.get("charset")) {
 			if (false == httpHeader.get("charset").isEmpty() && false == "".equals(httpHeader.get("charset"))) {
-				rb = rb.addHeader("Accept-Charset", httpHeader.get("charset"));		
+				rb = rb.addHeader("Accept-Charset", httpHeader.get("charset"));
 			}
 		}
 		if (null != httpHeader.get("language")) {
 			if (false == httpHeader.get("language").isEmpty() && false == "".equals(httpHeader.get("language"))) {
-				rb = rb.addHeader("Accept-Language", httpHeader.get("language"));		
+				rb = rb.addHeader("Accept-Language", httpHeader.get("language"));
 			}
 		}
 		if (null != httpHeader.get("cacheControl")) {
@@ -316,22 +313,22 @@ public class HTTPFactory {
 		}
 		if (null != httpHeader.get("host")) {
 			if (false == httpHeader.get("host").isEmpty() && false == "".equals(httpHeader.get("host"))) {
-				rb = rb.addHeader("Host", httpHeader.get("host"));		
+				rb = rb.addHeader("Host", httpHeader.get("host"));
 			}
 		}
 		if (null != httpHeader.get("origin")) {
 			if (false == httpHeader.get("origin").isEmpty() && false == "".equals(httpHeader.get("origin"))) {
-				rb = rb.addHeader("Origin", httpHeader.get("origin"));		
+				rb = rb.addHeader("Origin", httpHeader.get("origin"));
 			}
 		}
 		if (null != httpHeader.get("referer")) {
 			if (false == httpHeader.get("referer").isEmpty() && false == "".equals(httpHeader.get("referer"))) {
-				rb = rb.addHeader("Referer", httpHeader.get("referer"));		
+				rb = rb.addHeader("Referer", httpHeader.get("referer"));
 			}
 		}
 		if (null != httpHeader.get("userAgent")) {
 			if (false == httpHeader.get("userAgent").isEmpty() && false == "".equals(httpHeader.get("userAgent"))) {
-				rb = rb.header("User-Agent", httpHeader.get("userAgent"));		
+				rb = rb.header("User-Agent", httpHeader.get("userAgent"));
 			}
 		}
 		if (null != httpHeader.get("accessControlRequestHeaders")) {
@@ -348,8 +345,7 @@ public class HTTPFactory {
 					}
 				}
 			}
-		}
-		
+		}		
 		return rb;
 	}
 }
