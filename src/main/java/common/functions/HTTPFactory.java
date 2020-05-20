@@ -160,7 +160,7 @@ public class HTTPFactory {
 	}
 
 	private static HttpURLConnection setupHttpHeaders(HttpURLConnection huc, Map<String, String> httpHeader) {
-		huc.setRequestProperty("Accept",  httpHeader.get("accept"));
+		huc.setRequestProperty("Accept", httpHeader.get("accept"));
 		huc.setRequestProperty("Accept-Charset", httpHeader.get("charset"));
 		huc.setRequestProperty("Accept-Language", httpHeader.get("language"));
 		huc.setRequestProperty("Cache-Control", httpHeader.get("cacheControl"));
@@ -264,22 +264,21 @@ public class HTTPFactory {
 		}
 		Headers h = builder.build();
 		request = new Request.Builder()
-			    .header("Authorization", "your token")
-			    .url("https://api.github.com/users/vogella")
-			    .build();
+			.header("Authorization", "your token")
+			.url("https://api.github.com/users/vogella")
+			.build();
 		*/
 
 		rb = rb.header("Access-Control-Request-Method", httpMethod);
 		rb = rb.header("User-Agent", USER_AGENT);
 		rb = setupOkHttpHeaders(rb, httpHeader);
-		
 		request = rb.build();
-		
+
 		Response response = client.newCall(request).execute();
 		responseStr = response.body().string();
 		return responseStr;
 	}
-	
+
 	private static Builder setupOkHttpHeaders(Builder rb, Map<String, String> httpHeader) {
 		if (null != httpHeader.get("accept")) {
 			if (false == httpHeader.get("accept").isEmpty() && false == "".equals(httpHeader.get("accept"))) {
@@ -345,7 +344,7 @@ public class HTTPFactory {
 					}
 				}
 			}
-		}		
+		}
 		return rb;
 	}
 }
