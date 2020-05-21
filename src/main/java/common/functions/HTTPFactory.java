@@ -281,65 +281,65 @@ public class HTTPFactory {
 
 	private static Builder setupOkHttpHeaders(Builder rb, Map<String, String> httpHeader) {
 		if (null != httpHeader.get("accept")) {
-			if (false == httpHeader.get("accept").isEmpty() && false == "".equals(httpHeader.get("accept"))) {
+			if (!httpHeader.get("accept").isEmpty() && !"".equals(httpHeader.get("accept"))) {
 				rb = rb.addHeader("Accept", httpHeader.get("accept"));
 			}
 		}
 		if (null != httpHeader.get("charset")) {
-			if (false == httpHeader.get("charset").isEmpty() && false == "".equals(httpHeader.get("charset"))) {
+			if (!httpHeader.get("charset").isEmpty() && !"".equals(httpHeader.get("charset"))) {
 				rb = rb.addHeader("Accept-Charset", httpHeader.get("charset"));
 			}
 		}
 		if (null != httpHeader.get("language")) {
-			if (false == httpHeader.get("language").isEmpty() && false == "".equals(httpHeader.get("language"))) {
+			if (!httpHeader.get("language").isEmpty() && !"".equals(httpHeader.get("language"))) {
 				rb = rb.addHeader("Accept-Language", httpHeader.get("language"));
 			}
 		}
 		if (null != httpHeader.get("cacheControl")) {
-			if (false == httpHeader.get("cacheControl").isEmpty() && false == "".equals(httpHeader.get("cacheControl"))) {
+			if (!httpHeader.get("cacheControl").isEmpty() && !"".equals(httpHeader.get("cacheControl"))) {
 				rb = rb.addHeader("Cache-Control", httpHeader.get("cacheControl"));
 			}
 		}
 		if (null != httpHeader.get("connection")) {
-			if (false == httpHeader.get("connection").isEmpty() && false == "".equals(httpHeader.get("connection"))) {
+			if (!httpHeader.get("connection").isEmpty() && !"".equals(httpHeader.get("connection"))) {
 				rb = rb.addHeader("Connection", httpHeader.get("connection"));
 			}
 		}
 		if (null != httpHeader.get("contentType")) {
-			if (false == httpHeader.get("contentType").isEmpty() && false == "".equals(httpHeader.get("contentType"))) {
+			if (!httpHeader.get("contentType").isEmpty() && !"".equals(httpHeader.get("contentType"))) {
 				rb = rb.addHeader("Content-Type", httpHeader.get("contentType"));
 			}
 		}
 		if (null != httpHeader.get("host")) {
-			if (false == httpHeader.get("host").isEmpty() && false == "".equals(httpHeader.get("host"))) {
+			if (!httpHeader.get("host").isEmpty() && !"".equals(httpHeader.get("host"))) {
 				rb = rb.addHeader("Host", httpHeader.get("host"));
 			}
 		}
 		if (null != httpHeader.get("origin")) {
-			if (false == httpHeader.get("origin").isEmpty() && false == "".equals(httpHeader.get("origin"))) {
+			if (!httpHeader.get("origin").isEmpty() && !"".equals(httpHeader.get("origin"))) {
 				rb = rb.addHeader("Origin", httpHeader.get("origin"));
 			}
 		}
 		if (null != httpHeader.get("referer")) {
-			if (false == httpHeader.get("referer").isEmpty() && false == "".equals(httpHeader.get("referer"))) {
+			if (!httpHeader.get("referer").isEmpty() && !"".equals(httpHeader.get("referer"))) {
 				rb = rb.addHeader("Referer", httpHeader.get("referer"));
 			}
 		}
 		if (null != httpHeader.get("userAgent")) {
-			if (false == httpHeader.get("userAgent").isEmpty() && false == "".equals(httpHeader.get("userAgent"))) {
+			if (!httpHeader.get("userAgent").isEmpty() && !"".equals(httpHeader.get("userAgent"))) {
 				rb = rb.header("User-Agent", httpHeader.get("userAgent"));
 			}
 		}
 		if (null != httpHeader.get("accessControlRequestHeaders")) {
-			if (false == httpHeader.get("accessControlRequestHeaders").isEmpty() && false == "".equals(httpHeader.get("accessControlRequestHeaders"))) {
+			if (!httpHeader.get("accessControlRequestHeaders").isEmpty() && !"".equals(httpHeader.get("accessControlRequestHeaders"))) {
 				rb = rb.addHeader("Access-Control-Request-Headers", httpHeader.get("accessControlRequestHeaders"));
 				if (httpHeader.get("secFetchMode")!=null) {
-					if (false == httpHeader.get("secFetchMode").isEmpty() && false == "".equals(httpHeader.get("secFetchMode"))) {
+					if (!httpHeader.get("secFetchMode").isEmpty() && !"".equals(httpHeader.get("secFetchMode"))) {
 						rb = rb.addHeader("Sec-Fetch-Mode", httpHeader.get("secFetchMode"));
 					}
 				}
 				if (httpHeader.get("secFetchSite")!=null) {
-					if (false == httpHeader.get("secFetchSite").isEmpty() && false == "".equals(httpHeader.get("secFetchSite"))) {
+					if (!httpHeader.get("secFetchSite").isEmpty() && !"".equals(httpHeader.get("secFetchSite"))) {
 						rb = rb.addHeader("Sec-Fetch-Site", httpHeader.get("secFetchSite"));
 					}
 				}
