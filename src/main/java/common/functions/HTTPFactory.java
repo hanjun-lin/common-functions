@@ -77,7 +77,7 @@ public class HTTPFactory {
 				"{\r\n" + 
 				"  \"account_name\": \"tg01\"\r\n" +
 				"}";
-			
+
 			System.out.println("Call API: " + url + " via " + apiMethod);
 			//response = connectHTTPv11(apiMethod, httpHeader, url, requestBody);
 			response = connectHTTPv2(apiMethod, httpHeader, url, requestBody);
